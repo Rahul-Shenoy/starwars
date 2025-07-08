@@ -1,4 +1,5 @@
 import type { Character } from '../../../types';
+import React from 'react';
 import './CharacterCard.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +11,7 @@ interface CharacterCardProps {
     character: Character;
 }
 
-const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
+const CharacterCard: React.FC<CharacterCardProps> = React.memo(({ character }) => {
     const dispatch = useDispatch<AppDispatch>();
     // Get character detail from Redux store cache
     const characterDetail = useSelector(selectCharacterById(character.id?.toString()));
@@ -47,6 +48,6 @@ const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
             </tbody>
         </table>
     </div>;
-}
+});
 
-export default CharacterCard;
+export default React.memo(CharacterCard);
