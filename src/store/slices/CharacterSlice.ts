@@ -13,8 +13,9 @@ const initialState: CharacterState = {
     error: null
 };
 
+// Internal thunk for actual fetch
 export const fetchCharacterById = createAsyncThunk(
-    'character/fetchCharacterById',
+    'character/fetchCharacterByIdRaw',
     async (id: string) => {
         const response = await fetch(`https://swapi.tech/api/people/${id}`);
         const res = await response.json();
@@ -25,6 +26,16 @@ export const fetchCharacterById = createAsyncThunk(
         };
     }
 );
+
+// Public thunk: checks cache before fetching
+export const fetchCharacterByIdCached = (id: string) => (dispatch: any, getState: any) => {
+    const cached = getState().character.entities[id];
+    if (!cached) {
+        return dispatch(fetchCharacterById(id));
+    }
+    // Already cached, do nothing
+    return Promise.resolve();
+};
 
 const characterSlice = createSlice({
     name: 'character',

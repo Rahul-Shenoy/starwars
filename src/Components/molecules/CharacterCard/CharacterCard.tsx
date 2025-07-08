@@ -3,7 +3,7 @@ import './CharacterCard.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlanetCached, selectPlanetName, isPlanetLoading } from '../../../store/slices/PlanetSlice';
-import { selectCharacterById, fetchCharacterById } from '../../../store/slices/CharacterSlice';
+import { selectCharacterById, fetchCharacterByIdCached } from '../../../store/slices/CharacterSlice';
 import type { AppDispatch } from '../../../store';
 
 interface CharacterCardProps {
@@ -19,7 +19,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
     const planetLoading = useSelector(isPlanetLoading(characterDetail?.homeworld?.toString()));
 
     useEffect(() => {
-        dispatch(fetchCharacterById(character.id?.toString()));
+        dispatch(fetchCharacterByIdCached(character.id?.toString()));
     }, []);
 
     useEffect(() => {
