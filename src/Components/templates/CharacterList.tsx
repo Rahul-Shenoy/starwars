@@ -19,9 +19,6 @@ const CharacterList: React.FC = () => {
 
     return (
         <div className='character-list-container'>
-            <div className='character-list-header'>
-                <p>Click on a character to see more details.</p>
-            </div>
             <div className='character-list'>
                 {loading ? (
                     <div className="character-list-loader">

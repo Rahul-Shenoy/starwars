@@ -33,6 +33,7 @@ export const fetchCharacters = (url: string = SWAPI_PEOPLE_BASE_URL) => (dispatc
 
 // Search cache: { [query: string]: Character[] }
 export const searchCharacters = (searchTerm: string) => async (dispatch: any, getState: any) => {
+    dispatch({ type: 'characterList/searchStart' }); // Set loading true at start
     const normQuery = normalizeQuery(searchTerm);
     const cache = getState().characterList.searchCache || {};
     // If exact query is cached, use it
@@ -121,6 +122,9 @@ const characterListSlice = createSlice({
             state.previous = null;
             state.searchCache[query] = list;
             state.loading = false;
+        },
+        searchStart: (state) => {
+            state.loading = true;
         },
     },
     extraReducers: (builder) => {
