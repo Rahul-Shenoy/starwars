@@ -2,7 +2,7 @@ import type { Character } from '../../../types';
 import './CharacterCard.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlanet, selectPlanetName } from '../../../store/slices/PlanetSlice';
+import { fetchPlanet, selectPlanetName, isPlanetLoading } from '../../../store/slices/PlanetSlice';
 import { selectCharacterById, fetchCharacterById } from '../../../store/slices/CharacterSlice';
 import type { AppDispatch } from '../../../store';
 
@@ -15,6 +15,8 @@ const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
     // Get character detail from Redux store cache
     const characterDetail = useSelector(selectCharacterById(character.id.toString()));
     const planetName = useSelector(selectPlanetName(characterDetail?.homeworld?.toString()));
+    const characterLoading = useSelector((state: any) => state.character?.loading);
+    const planetLoading = useSelector(isPlanetLoading(characterDetail?.homeworld?.toString()));
 
     useEffect(() => {
         dispatch(fetchCharacterById(character.id.toString()));
@@ -32,11 +34,15 @@ const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
             <tbody>
                 <tr>
                     <td className='lbl'>Gender</td>
-                    <td data-testid='gender' className='value'>{characterDetail?.gender}</td> 
+                    <td data-testid='gender' className='value'>
+                        {characterLoading ? 'Loading...' : (characterDetail?.gender || 'N/A')}
+                    </td> 
                 </tr>
                 <tr>
                     <td className='lbl'>Home Planet</td>
-                    <td data-testid='home_planet' className='value'>{planetName}</td> 
+                    <td data-testid='home_planet' className='value'>
+                        {planetLoading ? 'Loading...' : (planetName || 'N/A')}
+                    </td> 
                 </tr>
             </tbody>
         </table>

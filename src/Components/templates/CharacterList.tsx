@@ -9,16 +9,27 @@ import './CharacterList.scss';
 const CharacterList: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const characters = useSelector(selectAllCharacters);
+    const loading = useSelector((state: any) => state.characterList?.loading);
     useEffect(() => {
         dispatch(fetchCharacters());
     }, []);
-    return (<div className='character-list'>
-    {
-        characters?.map((character: Character) => {
-            return <CharacterCard character={character}/>
-        })
-    }
-    </div>);
+    return (
+        <div className='character-list'>
+            {loading ? (
+                <div className="character-list-loader">
+                    <span className="loader" /> Loading characters...
+                </div>
+            ) : (
+                characters?.map((character: Character) => (
+                    <CharacterCard key={character.id?.toString()} character={character} />
+                ))
+            )}
+            <i aria-hidden="true"/>
+            <i aria-hidden="true"/>
+            <i aria-hidden="true"/>
+            <i aria-hidden="true"/>
+        </div>
+    );
 }
 
 export default CharacterList;

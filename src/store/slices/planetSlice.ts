@@ -2,14 +2,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 interface PlanetState {
     entities: { [url: string]: string }; // url -> planet name
-    loading: boolean;
-    error: string | null;
+    loading: { [url: string]: boolean };
+    error: { [url: string]: string | null };
 }
 
 const initialState: PlanetState = {
     entities: {},
-    loading: false,
-    error: null,
+    loading: {},
+    error: {},
 };
 
 export const fetchPlanet = createAsyncThunk(
@@ -26,8 +26,18 @@ const planetSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(fetchPlanet.pending, (state, action) => {
+            state.loading[action.meta.arg] = true;
+            state.error[action.meta.arg] = null;
+        });
         builder.addCase(fetchPlanet.fulfilled, (state, action) => {
             state.entities[action.payload.url] = action.payload.name;
+            state.loading[action.payload.url] = false;
+            state.error[action.payload.url] = null;
+        });
+        builder.addCase(fetchPlanet.rejected, (state, action) => {
+            state.loading[action.meta.arg] = false;
+            state.error[action.meta.arg] = action.error.message || 'Failed to fetch planet';
         });
     },
 });
@@ -35,3 +45,7 @@ const planetSlice = createSlice({
 export const planetReducer = planetSlice.reducer;
 export const selectPlanetName = (url: string) => (state: any) =>
     state.planets.entities[url];
+export const isPlanetLoading = (url: string) => (state: any) =>
+    !!state.planets.loading[url];
+export const selectPlanetError = (url: string) => (state: any) =>
+    state.planets.error[url];
