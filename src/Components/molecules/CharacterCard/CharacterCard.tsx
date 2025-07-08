@@ -13,18 +13,18 @@ interface CharacterCardProps {
 const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
     const dispatch = useDispatch<AppDispatch>();
     // Get character detail from Redux store cache
-    const characterDetail = useSelector(selectCharacterById(character.id.toString()));
+    const characterDetail = useSelector(selectCharacterById(character.id?.toString()));
     const planetName = useSelector(selectPlanetName(characterDetail?.homeworld?.toString()));
     const characterLoading = useSelector((state: any) => state.character?.loading);
     const planetLoading = useSelector(isPlanetLoading(characterDetail?.homeworld?.toString()));
 
     useEffect(() => {
-        dispatch(fetchCharacterById(character.id.toString()));
+        dispatch(fetchCharacterById(character.id?.toString()));
     }, []);
 
     useEffect(() => {
         if (characterDetail && !planetName && characterDetail.homeworld) {
-            dispatch(fetchPlanet(characterDetail.homeworld.toString()));
+            dispatch(fetchPlanet(characterDetail.homeworld?.toString()));
         }
     }, [characterDetail?.homeworld, planetName, dispatch]);
 

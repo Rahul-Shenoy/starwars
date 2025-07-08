@@ -1,7 +1,7 @@
 import type { Character } from '../../types';
 import type { AppDispatch } from '../../store';
 import CharacterCard from '../../Components/molecules/CharacterCard/CharacterCard';
-import Pagination from '../../Components/molecules/Pagination';
+import Pagination from '../atoms/Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { selectAllCharacters, fetchCharacters } from '../../store/slices/CharacterListSlice';
@@ -11,7 +11,6 @@ const CharacterList: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const characters = useSelector(selectAllCharacters);
     const loading = useSelector((state: any) => state.characterList?.loading);
-
     useEffect(() => {
         dispatch(fetchCharacters('http://swapi.tech/api/people/'));
     }, [dispatch]);
@@ -29,7 +28,7 @@ const CharacterList: React.FC = () => {
                 ) : (
                     <>
                         {characters?.map((character: Character) => (
-                            <CharacterCard key={character.id?.toString()} character={character} />
+                            <CharacterCard key={character.name?.toString()} character={character} />
                         ))}
                     </>
                 )}
