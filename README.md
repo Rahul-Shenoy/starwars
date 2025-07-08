@@ -12,7 +12,7 @@ A performant, feature-rich React/Redux app for browsing Star Wars characters and
    ```sh
    npm install
    ```
-   # or
+    or
   ```sh
    yarn install
    ```
@@ -21,7 +21,7 @@ A performant, feature-rich React/Redux app for browsing Star Wars characters and
    ```sh
    npm run dev
    ```
-   # or
+    or
    ```sh
    yarn dev
    ```
@@ -31,7 +31,7 @@ A performant, feature-rich React/Redux app for browsing Star Wars characters and
    ```sh
    npm test
    ```
-   # or
+    or
    ```sh
    yarn test
    ```
