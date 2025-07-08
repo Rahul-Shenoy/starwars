@@ -6,7 +6,7 @@ function normalizeUrl(url: string) {
     return url.replace(/\/$/, '');
 }
 
-export const fetchCharacters = createAsyncThunk(
+export const fetchCharactersRaw = createAsyncThunk(
     'characterList/fetchCharactersRaw',
     async (url: string = 'https://swapi.tech/api/people/') => {
         const response = await fetch(url);
@@ -15,11 +15,11 @@ export const fetchCharacters = createAsyncThunk(
     }
 );
 
-export const fetchCharactersCached = (url: string = 'https://swapi.tech/api/people/') => (dispatch: any, getState: any) => {
+export const fetchCharacters = (url: string = 'https://swapi.tech/api/people/') => (dispatch: any, getState: any) => {
     const normUrl = normalizeUrl(url);
     const cached = getState().characterList.cache[normUrl];
     if (!cached) {
-        return dispatch(fetchCharacters(normUrl));
+        return dispatch(fetchCharactersRaw(normUrl));
     }
     // Already cached, update list from cache
     dispatch({ type: 'characterList/useCache', payload: { url: normUrl } });
@@ -69,10 +69,10 @@ const characterListSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchCharacters.pending, (state) => {
+        builder.addCase(fetchCharactersRaw.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(fetchCharacters.fulfilled, (state, action) => {
+        builder.addCase(fetchCharactersRaw.fulfilled, (state, action) => {
             state.loading = false;
             const url = action.payload.url;
             const payload = action.payload.data;
@@ -90,7 +90,7 @@ const characterListSlice = createSlice({
                 previous: payload.previous,
             };
         });
-        builder.addCase(fetchCharacters.rejected, (state, action) => {
+        builder.addCase(fetchCharactersRaw.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message || 'Failed to fetch characters';
         });
