@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { Character } from '../../types';
+import { SWAPI_PEOPLE_BASE_URL } from '../../constants';
 
 function normalizeUrl(url: string) {
     // Remove trailing slashes and normalize
@@ -12,14 +13,14 @@ function normalizeQuery(query: string) {
 
 export const fetchCharactersRaw = createAsyncThunk(
     'characterList/fetchCharactersRaw',
-    async (url: string = 'https://swapi.tech/api/people/') => {
+    async (url: string = SWAPI_PEOPLE_BASE_URL) => {
         const response = await fetch(url);
         const data = await response.json();
         return { url: normalizeUrl(url), data };
     }
 );
 
-export const fetchCharacters = (url: string = 'https://swapi.tech/api/people/') => (dispatch: any, getState: any) => {
+export const fetchCharacters = (url: string = SWAPI_PEOPLE_BASE_URL) => (dispatch: any, getState: any) => {
     const normUrl = normalizeUrl(url);
     const cached = getState().characterList.cache[normUrl];
     if (!cached) {
@@ -55,7 +56,7 @@ export const searchCharacters = (searchTerm: string) => async (dispatch: any, ge
     //     return Promise.resolve();
     // }
     // Otherwise, fetch from API
-    const response = await fetch(`https://swapi.tech/api/people/?name=${encodeURIComponent(searchTerm)}`);
+    const response = await fetch(`${SWAPI_PEOPLE_BASE_URL}?name=${encodeURIComponent(searchTerm)}`);
     const data = await response.json();
     dispatch({ type: 'characterList/searchApiFulfilled', payload: { query: normQuery, data } });
 };
@@ -102,7 +103,7 @@ const characterListSlice = createSlice({
             state.loading = false;
         },
         useSearchCacheFiltered: (state, action) => {
-            const { query, filtered } = action.payload;
+            const { null: _, filtered } = action.payload;
             state.list = filtered;
             state.next = null;
             state.previous = null;

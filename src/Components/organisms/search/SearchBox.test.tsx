@@ -1,24 +1,25 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import SearchBox from './SearchBox';
+import { vi } from 'vitest';
+import '@testing-library/jest-dom';
 
-const middlewares = [thunk];
+const middlewares = [thunk as any];
 const mockStore = configureStore(middlewares);
 
 describe('SearchBox', () => {
     let store: any;
-    let dispatchSpy: jest.SpyInstance;
+    let dispatchSpy: ReturnType<typeof vi.spyOn>;
 
     beforeEach(() => {
         store = mockStore({});
-        dispatchSpy = jest.spyOn(store, 'dispatch');
+        dispatchSpy = vi.spyOn(store, 'dispatch');
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     function renderWithStore() {
@@ -56,7 +57,7 @@ describe('SearchBox', () => {
         fireEvent.change(input, { target: { value: '' } });
         await waitFor(() => {
             const actions = store.getActions();
-            expect(actions.some((a: any) => a.type && a.type.includes('fetchCharacters'))).toBe(true);
+            expect(actions.some((a: any) => a.type && a.type.includes('fetchCharactersCached'))).toBe(true);
         });
     });
 

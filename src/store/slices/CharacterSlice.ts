@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import type { Character } from '../../types';
+import { SWAPI_PEOPLE_BASE_URL } from '../../constants';
 
 interface CharacterState {
     entities: { [id: string]: Character & { isFavourite?: boolean } };
@@ -17,7 +18,7 @@ const initialState: CharacterState = {
 export const fetchCharacterById = createAsyncThunk(
     'character/fetchCharacterByIdRaw',
     async (id: string) => {
-        const response = await fetch(`https://swapi.tech/api/people/${id}`);
+        const response = await fetch(`${SWAPI_PEOPLE_BASE_URL}/${id}`);
         const res = await response.json();
         const data = res.result.properties;
         return {

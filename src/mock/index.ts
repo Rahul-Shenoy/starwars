@@ -1,9 +1,4 @@
-import type { Character, Planet } from '../types';
-
-const planet: Planet = {
-    id: '1',
-    name: 'Tatooine',
-}
+import type { Character } from '../types';
 
 export const character: Character = {
     id: '1',
@@ -15,6 +10,6 @@ export const character: Character = {
     eye_color: 'blue',
     mass: 77,
     birth_year: '19BBY',
-    home_planet: planet,
+    homeworld: 'https://www.swapi.tech/api/planets/1',
     url: 'https://www.swapi.tech/api/people/1'
 }

@@ -60,8 +60,8 @@ const planetSlice = createSlice({
 
 export const planetReducer = planetSlice.reducer;
 export const selectPlanetName = (url: string) => (state: any) =>
-    state.planets.entities[url];
+    state.planets?.entities[url];
 export const isPlanetLoading = (url: string) => (state: any) =>
-    !!state.planets.loading[url];
+    !!state.planets?.loading[url];
 export const selectPlanetError = (url: string) => (state: any) =>
-    state.planets.error[url];
+    state.planets?.error[url];

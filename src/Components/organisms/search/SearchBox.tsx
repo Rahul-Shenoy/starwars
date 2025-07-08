@@ -22,7 +22,7 @@ const SearchBox: React.FC = () => {
                 dispatch(searchCharacters(input.trim()));
             }
             else {
-                dispatch(fetchCharacters('https://swapi.tech/api/people/'));
+                dispatch(fetchCharacters());
              }
         }, 500);
         return () => {

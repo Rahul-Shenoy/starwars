@@ -24,7 +24,7 @@ const CharacterDetail: React.FC<CharacterDetailProps> = ({character}) => {
             </tr>
             <tr>
                 <td className='lbl'>Home Planet</td>
-                <td data-testid='home_planet' className='value'>{character.home_planet.name}</td> 
+                <td data-testid='home_planet' className='value'>{character.homeworld}</td> 
             </tr>
         </table>
 

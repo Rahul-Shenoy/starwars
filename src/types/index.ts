@@ -14,7 +14,6 @@ export interface Character {
     mass: Number,
     birth_year: String,
     homeworld: String,
-    home_planet: String,
     url: String,
     isFavourite?: boolean;
 }

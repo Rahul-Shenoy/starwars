@@ -4,6 +4,7 @@ import CharacterCard from '../../Components/molecules/CharacterCard/CharacterCar
 import Pagination from '../organisms/Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { SWAPI_BASE_URL } from '../../constants';
 import { selectAllCharacters, fetchCharacters } from '../../store/slices/CharacterListSlice';
 import './CharacterList.scss';
 
@@ -12,7 +13,7 @@ const CharacterList: React.FC = () => {
     const characters = useSelector(selectAllCharacters);
     const loading = useSelector((state: any) => state.characterList?.loading);
     useEffect(() => {
-        dispatch(fetchCharacters('http://swapi.tech/api/people/'));
+        dispatch(fetchCharacters(`${SWAPI_BASE_URL}/people/`));
     }, [dispatch]);
 
     return (

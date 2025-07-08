@@ -3,7 +3,7 @@ import React from 'react';
 import './CharacterCard.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlanetCached, selectPlanetName, isPlanetLoading } from '../../../store/slices/PlanetSlice';
+import { fetchPlanetCached, selectPlanetName, isPlanetLoading } from '../../../store/slices/planetSlice';
 import { selectCharacterById, fetchCharacterByIdCached, setFavourite } from '../../../store/slices/CharacterSlice';
 import type { AppDispatch } from '../../../store';
 
@@ -55,13 +55,13 @@ const CharacterCard: React.FC<CharacterCardProps> = React.memo(({ character }) =
                 <tr>
                     <td className="lbl">Gender</td>
                     <td data-testid="gender" className="value">
-                        {characterLoading ? 'Loading...' : (characterDetail?.gender || 'N/A')}
+                        {characterLoading ? 'Loading...' : (characterDetail?.gender)}
                     </td>
                 </tr>
                 <tr>
                     <td className="lbl">Home Planet</td>
                     <td data-testid="home_planet" className="value">
-                        {characterLoading || planetLoading ? 'Loading...' : (planetName || 'N/A')}
+                        {characterLoading || planetLoading ? 'Loading...' : (planetName)}
                     </td>
                 </tr>
             </tbody>

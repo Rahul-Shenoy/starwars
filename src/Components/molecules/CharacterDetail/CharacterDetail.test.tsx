@@ -9,10 +9,10 @@ test('Characters are loading with required detail', () => {
     expect(screen.getByText('Luke Skywalker')).toBeInTheDocument();
     const gender = screen.getByTestId('gender');
     expect(gender).toBeInTheDocument();
-    expect(gender).toHaveTextContent(character.gender);
+    expect(gender).toHaveTextContent(character.gender.toString());
     const homePlanet = screen.getByTestId('home_planet');
     expect(homePlanet).toBeInTheDocument();
-    expect(homePlanet).toHaveTextContent(character.home_planet.name);
+    expect(homePlanet).toHaveTextContent(character.homeworld.toString());
 });
 
 // Character click is happening
