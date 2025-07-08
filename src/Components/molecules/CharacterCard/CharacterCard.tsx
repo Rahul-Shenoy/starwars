@@ -2,7 +2,7 @@ import type { Character } from '../../../types';
 import './CharacterCard.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlanet, selectPlanetName, isPlanetLoading } from '../../../store/slices/PlanetSlice';
+import { fetchPlanetCached, selectPlanetName, isPlanetLoading } from '../../../store/slices/PlanetSlice';
 import { selectCharacterById, fetchCharacterById } from '../../../store/slices/CharacterSlice';
 import type { AppDispatch } from '../../../store';
 
@@ -24,7 +24,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
 
     useEffect(() => {
         if (characterDetail && !planetName && characterDetail.homeworld) {
-            dispatch(fetchPlanet(characterDetail.homeworld?.toString()));
+            dispatch(fetchPlanetCached(characterDetail.homeworld?.toString()));
         }
     }, [characterDetail?.homeworld, planetName, dispatch]);
 

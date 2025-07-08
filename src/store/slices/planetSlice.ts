@@ -12,14 +12,25 @@ const initialState: PlanetState = {
     error: {},
 };
 
+// Internal thunk for actual fetch
 export const fetchPlanet = createAsyncThunk(
-    'planets/fetchPlanet',
+    'planets/fetchPlanetRaw',
     async (url: string) => {
         const response = await fetch(url);
         const data = await response.json();
         return { url, name: data.result.properties.name };
     }
 );
+
+// Public thunk: checks cache before fetching
+export const fetchPlanetCached = (url: string) => (dispatch: any, getState: any) => {
+    const cached = getState().planets.entities[url];
+    if (!cached) {
+        return dispatch(fetchPlanet(url));
+    }
+    // Already cached, do nothing
+    return Promise.resolve();
+};
 
 const planetSlice = createSlice({
     name: 'planets',
