@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { fetchCharacters, searchCharacters } from '../../../store/slices/CharacterListSlice';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../store';
+import './SearchBox.scss';
 
 const SearchBox: React.FC = () => {
     const [input, setInput] = useState('');
@@ -38,13 +40,14 @@ const SearchBox: React.FC = () => {
     return (
         <form className="search-box" onSubmit={handleSubmit}>
             <input
+                className="search-box-input"
                 type="text"
                 value={input}
                 onChange={handleChange}
                 placeholder={"search characters..."}
                 aria-label="Search"
             />
-            <button type="submit">Search</button>
+            <button className="search-box-btn" type="submit">Search</button>
         </form>
     );
 };
