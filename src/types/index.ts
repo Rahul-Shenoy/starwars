@@ -16,4 +16,5 @@ export interface Character {
     homeworld: String,
     home_planet: String,
     url: String,
+    isFavourite?: boolean;
 }

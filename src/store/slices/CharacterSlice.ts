@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import type { Character } from '../../types';
 
 interface CharacterState {
-    entities: { [id: string]: Character };
+    entities: { [id: string]: Character & { isFavourite?: boolean } };
     loading: boolean;
     error: string | null;
 }
@@ -40,13 +40,23 @@ export const fetchCharacterByIdCached = (id: string) => (dispatch: any, getState
 const characterSlice = createSlice({
     name: 'character',
     initialState,
-    reducers: {},
+    reducers: {
+        setFavourite(state, action: PayloadAction<{ id: string; isFavourite: boolean }>) {
+            const { id, isFavourite } = action.payload;
+            if (state.entities[id]) {
+                state.entities[id].isFavourite = isFavourite;
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchCharacterById.fulfilled, (state, action) => {
             state.loading = false;
             // Overwrite or add the full character details by id
             if (action.payload && action.payload.id) {
-                state.entities[action.payload.id.toString()] = action.payload;
+                state.entities[action.payload.id.toString()] = {
+                    ...action.payload,
+                    isFavourite: state.entities[action.payload.id.toString()]?.isFavourite || false
+                };
             }
         });
         builder.addCase(fetchCharacterById.pending, (state) => {
@@ -59,5 +69,6 @@ const characterSlice = createSlice({
     }
 });
 
+export const { setFavourite } = characterSlice.actions;
 export const characterReducer = characterSlice.reducer;
 export const selectCharacterById = (id: string) => (state: { character: CharacterState }) => state.character.entities[id];

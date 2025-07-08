@@ -7,6 +7,32 @@
     height: 180px;
     width: 200px;
     box-shadow: 0px 0px 3px #999;
+    .character-card-fav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 8px 12px 0 0;
+    }
+
+    .character-card-fav-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .character-card-fav-checkbox {
+        margin-right: 6px;
+    }
+
+    .character-card-fav-text {
+        color: #bbb;
+        font-weight: 600;
+        transition: color 0.2s;
+    }
+    .character-card-fav-text.favourite {
+        color: #f5b301;
+    }
     h5 {
         font-size: 16px;
         margin: 12px 0px;

@@ -4,7 +4,7 @@ import './CharacterCard.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlanetCached, selectPlanetName, isPlanetLoading } from '../../../store/slices/PlanetSlice';
-import { selectCharacterById, fetchCharacterByIdCached } from '../../../store/slices/CharacterSlice';
+import { selectCharacterById, fetchCharacterByIdCached, setFavourite } from '../../../store/slices/CharacterSlice';
 import type { AppDispatch } from '../../../store';
 
 interface CharacterCardProps {
@@ -29,21 +29,40 @@ const CharacterCard: React.FC<CharacterCardProps> = React.memo(({ character }) =
         }
     }, [characterDetail?.homeworld, planetName, dispatch]);
 
+    const isFavourite = characterDetail?.isFavourite || false;
+    const handleFavouriteToggle = () => {
+        dispatch(setFavourite({ id: character.id?.toString(), isFavourite: !isFavourite }));
+    };
+
     return <div className='character-card'>
-        <h5 >{characterDetail?.name || character.name}</h5>
+        <div className="character-card-fav-toggle">
+            <label className="character-card-fav-label">
+                <input
+                    type="checkbox"
+                    checked={isFavourite}
+                    onChange={handleFavouriteToggle}
+                    className="character-card-fav-checkbox"
+                    aria-label="Toggle favourite"
+                />
+            </label>
+            <span className={`character-card-fav-text${isFavourite ? ' favourite' : ''}`}>
+                Favourite
+            </span>
+        </div>
+        <h5>{characterDetail?.name || character.name}</h5>
         <table>
             <tbody>
                 <tr>
-                    <td className='lbl'>Gender</td>
-                    <td data-testid='gender' className='value'>
+                    <td className="lbl">Gender</td>
+                    <td data-testid="gender" className="value">
                         {characterLoading ? 'Loading...' : (characterDetail?.gender || 'N/A')}
-                    </td> 
+                    </td>
                 </tr>
                 <tr>
-                    <td className='lbl'>Home Planet</td>
-                    <td data-testid='home_planet' className='value'>
+                    <td className="lbl">Home Planet</td>
+                    <td data-testid="home_planet" className="value">
                         {characterLoading || planetLoading ? 'Loading...' : (planetName || 'N/A')}
-                    </td> 
+                    </td>
                 </tr>
             </tbody>
         </table>
