@@ -1,4 +1,4 @@
-interface Planet {
+export interface Planet {
     id: String;
     name: String;
 }
@@ -12,6 +12,7 @@ export interface Character {
     height: Number,
     eye_color: String,
     mass: Number,
-    url: String,
     birth_year: String;
+    home_planet: String;
+    url: String,
 }

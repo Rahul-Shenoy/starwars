@@ -1,25 +1,16 @@
 import './App.css'
-import CharacterCard from './Components/molecules/CharacterCard/CharacterCard';
-import type { Character } from './types';
-
-const character: Character = {
-    id: 'String',
-    name: 'Luke Skywalker',
-    gender: 'male',
-    skin_color: 'fair',
-    hair_color: 'blond',
-    height: 172,
-    eye_color: 'blue',
-    mass: 77,
-    birth_year: '19BBY',
-    url: 'https://www.swapi.tech/api/people/1'
-}
+import CharacterList from './Components/templates/CharacterList';
+import { character } from './mock';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 function App() {
   return (
-    <>
-      <CharacterCard character={character}/>
-    </>
+    <Provider store={store}>
+      <div>
+        <CharacterList list={[]}/>
+      </div>
+    </Provider>
   )
 }
 

@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
-import CharacterCard from './CharacterCard';
+import CharacterDetail from './CharacterDetail';
 import { character } from '../../../mock';
 // Character component renders with required elements
 test('Characters are loading with required detail', () => {
     console.log(character);
-    render(<CharacterCard character={character}/>).container;
+    render(<CharacterDetail character={character}/>).container;
     expect(screen.getByText('Luke Skywalker')).toBeInTheDocument();
     const gender = screen.getByTestId('gender');
     expect(gender).toBeInTheDocument();
