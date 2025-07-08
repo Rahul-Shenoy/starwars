@@ -27,6 +27,7 @@ export const characterListSlice = createSlice({
                 return {
                     id: character.uid,
                     name: character.name,
+                    url: character.url,
                 };
             });
         });
