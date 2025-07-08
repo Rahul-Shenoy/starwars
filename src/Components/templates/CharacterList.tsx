@@ -1,10 +1,10 @@
 import type { Character } from '../../types';
 import type { AppDispatch } from '../../store';
-import { fetchCharacters } from '../../store/slices/thunks';
 import CharacterCard from '../../Components/molecules/CharacterCard/CharacterCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { selectAllCharacters } from '../../store/slices/CharacterListSlice';
+import { selectAllCharacters, fetchCharacters } from '../../store/slices/CharacterListSlice';
+import './CharacterList.scss';
 
 const CharacterList: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -12,7 +12,7 @@ const CharacterList: React.FC = () => {
     useEffect(() => {
         dispatch(fetchCharacters());
     }, []);
-    return (<div>
+    return (<div className='character-list'>
     {
         characters?.map((character: Character) => {
             return <CharacterCard character={character}/>

@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchCharacters } from './thunks';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { Character } from '../../types';
 
 interface CharacterListState {
@@ -13,6 +12,15 @@ const initialState: CharacterListState = {
     loading: false,
     error: null
 };
+
+export const fetchCharacters = createAsyncThunk(
+    'character/fetchCharacters',
+    async () => {
+        const response = await fetch(`https://swapi.tech/api/people/`);
+        const data = await response.json();
+        return data;
+    }
+);
 
 export const characterListSlice = createSlice({
     name: 'characters',

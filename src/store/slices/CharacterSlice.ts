@@ -1,38 +1,52 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchCharacters } from './thunks';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { Character } from '../../types';
 
 interface CharacterState {
-    data: Character;
+    entities: { [id: string]: Character };
     loading: boolean;
     error: string | null;
 }
 
 const initialState: CharacterState = {
-    data: {name: '', homeworld:'', height: 0, mass: 0, hair_color: '', skin_color: '', eye_color: '', birth_year: '', gender: '', home_planet: '', url: '', id: ''},
+    entities: {},
     loading: false,
     error: null
 };
 
+export const fetchCharacterById = createAsyncThunk(
+    'character/fetchCharacterById',
+    async (id: string) => {
+        const response = await fetch(`https://swapi.tech/api/people/${id}`);
+        const res = await response.json();
+        const data = res.result.properties;
+        return {
+            ...data, 
+            id: res.result.uid
+        };
+    }
+);
+
 const characterSlice = createSlice({
     name: 'character',
     initialState,
-    reducers: {
-
-    },
+    reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchCharacters.fulfilled, (state, action) => {
+        builder.addCase(fetchCharacterById.fulfilled, (state, action) => {
             state.loading = false;
-            state.data = action.payload;
+            // Overwrite or add the full character details by id
+            if (action.payload && action.payload.id) {
+                state.entities[action.payload.id.toString()] = action.payload;
+            }
         });
-        builder.addCase(fetchCharacters.pending, (state, action) => {
+        builder.addCase(fetchCharacterById.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(fetchCharacters.rejected, (state, action) => {
+        builder.addCase(fetchCharacterById.rejected, (state, action) => {
             state.loading = false;
-        })
+            state.error = action.error.message || 'Failed to fetch character details';
+        });
     }
-})
+});
 
 export const characterReducer = characterSlice.reducer;
-export const selectCharacterById = (state: {character: CharacterState}) => state.character.data;
+export const selectCharacterById = (id: string) => (state: { character: CharacterState }) => state.character.entities[id];

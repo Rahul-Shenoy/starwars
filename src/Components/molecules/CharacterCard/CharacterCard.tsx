@@ -1,40 +1,38 @@
 import type { Character } from '../../../types';
 import './CharacterCard.scss';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlanet, selectPlanetName } from '../../../store/slices/PlanetSlice';
+import { selectCharacterById, fetchCharacterById } from '../../../store/slices/CharacterSlice';
+import type { AppDispatch } from '../../../store';
 
 interface CharacterCardProps {
     character: Character;
 }
 
-import type { AppDispatch } from '../../../store';
 const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
     const dispatch = useDispatch<AppDispatch>();
-    const [characterDetail, setCharacterDetail] = useState(character);
-    const planetName = useSelector(selectPlanetName(characterDetail.homeworld?.toString()));
+    // Get character detail from Redux store cache
+    const characterDetail = useSelector(selectCharacterById(character.id.toString()));
+    const planetName = useSelector(selectPlanetName(characterDetail?.homeworld?.toString()));
+
     useEffect(() => {
-        fetch(characterDetail?.url?.toString())
-        .then(response => response.json())
-        .then(res => {
-            const data = res.result.properties;
-            setCharacterDetail({
-                ...data,
-                id: res.result.uid
-            });
-            if (!planetName && data.homeworld) {
-                dispatch(fetchPlanet(data.homeworld?.toString()));
-            }
-        });
-    }, [character.id]);
+        dispatch(fetchCharacterById(character.id.toString()));
+    }, []);
+
+    useEffect(() => {
+        if (characterDetail && !planetName && characterDetail.homeworld) {
+            dispatch(fetchPlanet(characterDetail.homeworld.toString()));
+        }
+    }, [characterDetail?.homeworld, planetName, dispatch]);
 
     return <div className='character-card'>
-        <h5 >{character.name}</h5>
+        <h5 >{characterDetail?.name || character.name}</h5>
         <table>
             <tbody>
                 <tr>
                     <td className='lbl'>Gender</td>
-                    <td data-testid='gender' className='value'>{characterDetail.gender}</td> 
+                    <td data-testid='gender' className='value'>{characterDetail?.gender}</td> 
                 </tr>
                 <tr>
                     <td className='lbl'>Home Planet</td>
