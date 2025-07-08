@@ -1,7 +1,7 @@
 import type { Character } from '../../types';
 import type { AppDispatch } from '../../store';
 import CharacterCard from '../../Components/molecules/CharacterCard/CharacterCard';
-import Pagination from '../atoms/Pagination/Pagination';
+import Pagination from '../organisms/Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { selectAllCharacters, fetchCharacters } from '../../store/slices/CharacterListSlice';
