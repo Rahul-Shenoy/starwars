@@ -1,7 +1,3 @@
-# Star Wars Character Browser
-
-A performant, feature-rich React/Redux app for browsing Star Wars characters and planets.
-
 ## Prerequisites
 - Node.js (v18 or later recommended)
 - npm (v9 or later) or yarn
