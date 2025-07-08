@@ -13,11 +13,11 @@ A performant, feature-rich React/Redux app for browsing Star Wars characters and
    npm install
    ```
     or
-  ```sh
+   ```sh
    yarn install
    ```
 
-2. **Start the development server**
+3. **Start the development server**
    ```sh
    npm run dev
    ```
@@ -27,7 +27,7 @@ A performant, feature-rich React/Redux app for browsing Star Wars characters and
    ```
    The app will be start at [http://localhost:5173](http://localhost:5173) 
 
-3. **Run tests**
+4. **Run tests**
    ```sh
    npm test
    ```
