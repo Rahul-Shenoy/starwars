@@ -1,5 +1,13 @@
 .character-list{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 16px;
+    width: 1200px;
+    margin: 0px auto;
+}
+
+i {
+    width: 240px;
 }
