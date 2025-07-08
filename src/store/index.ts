@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { characterReducer } from './slices/CharacterSlice';
 import { characterListReducer } from './slices/CharacterListSlice';
+import { planetReducer } from './slices/PlanetSlice';
 
 
 export const store = configureStore ({
     reducer: {
         character: characterReducer,
-        characterList: characterListReducer
+        characterList: characterListReducer,
+        planets: planetReducer,
     }
 });
 

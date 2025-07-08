@@ -9,18 +9,16 @@ import { selectAllCharacters } from '../../store/slices/CharacterListSlice';
 const CharacterList: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const characters = useSelector(selectAllCharacters);
-    console.log(characters);
     useEffect(() => {
         dispatch(fetchCharacters());
     }, []);
     return (<div>
-        {characters?.length}
-        {
-            characters?.map((character: Character) => {
-                return <CharacterCard character={character}/>
-            })
-        }
-        </div>);
+    {
+        characters?.map((character: Character) => {
+            return <CharacterCard character={character}/>
+        })
+    }
+    </div>);
 }
 
 export default CharacterList;

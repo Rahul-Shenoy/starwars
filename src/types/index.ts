@@ -12,7 +12,8 @@ export interface Character {
     height: Number,
     eye_color: String,
     mass: Number,
-    birth_year: String;
-    home_planet: String;
+    birth_year: String,
+    homeworld: String,
+    home_planet: String,
     url: String,
 }
