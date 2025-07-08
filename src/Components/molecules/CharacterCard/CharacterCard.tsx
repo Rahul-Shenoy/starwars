@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlanetCached, selectPlanetName, isPlanetLoading } from '../../../store/slices/planetSlice';
 import { selectCharacterById, fetchCharacterByIdCached, setFavourite } from '../../../store/slices/CharacterSlice';
 import type { AppDispatch } from '../../../store';
+import BarLoader from 'react-spinners/BarLoader';
 
 interface CharacterCardProps {
     character: Character;
@@ -55,13 +56,13 @@ const CharacterCard: React.FC<CharacterCardProps> = React.memo(({ character }) =
                 <tr>
                     <td className="lbl">Gender</td>
                     <td data-testid="gender" className="value">
-                        {characterLoading ? 'Loading...' : (characterDetail?.gender)}
+                        {characterLoading ? <BarLoader /> : (characterDetail?.gender)}
                     </td>
                 </tr>
                 <tr>
                     <td className="lbl">Home Planet</td>
                     <td data-testid="home_planet" className="value">
-                        {characterLoading || planetLoading ? 'Loading...' : (planetName)}
+                        {characterLoading || planetLoading ? <BarLoader /> : (planetName)}
                     </td>
                 </tr>
             </tbody>

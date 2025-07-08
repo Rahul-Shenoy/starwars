@@ -14,7 +14,6 @@ const initialState: CharacterState = {
     error: null
 };
 
-// Internal thunk for actual fetch
 export const fetchCharacterById = createAsyncThunk(
     'character/fetchCharacterByIdRaw',
     async (id: string) => {

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { SWAPI_BASE_URL } from '../../constants';
 import { selectAllCharacters, fetchCharacters } from '../../store/slices/CharacterListSlice';
+import PuffLoader from 'react-spinners/PuffLoader';
 import './CharacterList.scss';
 
 const CharacterList: React.FC = () => {
@@ -24,7 +25,7 @@ const CharacterList: React.FC = () => {
             <div className='character-list'>
                 {loading ? (
                     <div className="character-list-loader">
-                        <span className="loader" /> Loading characters...
+                        <PuffLoader />
                     </div>
                 ) : (
                     <>
