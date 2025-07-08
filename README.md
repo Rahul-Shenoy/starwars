@@ -11,28 +11,27 @@ A performant, feature-rich React/Redux app for browsing Star Wars characters and
 1. **Install dependencies**
    ```sh
    npm install
+   ```
    # or
+  ```sh
    yarn install
    ```
 
 2. **Start the development server**
    ```sh
    npm run dev
+   ```
    # or
+   ```sh
    yarn dev
    ```
-   The app will be available at [http://localhost:5173](http://localhost:5173) (default Vite port).
+   The app will be start at [http://localhost:5173](http://localhost:5173) 
 
 3. **Run tests**
    ```sh
    npm test
+   ```
    # or
+   ```sh
    yarn test
    ```
-   > For component and Redux tests. Make sure you have all dev dependencies installed.
-
-## Project Structure
-
-- `src/` — Main source code (components, store, types, etc.)
-- `public/` — Static assets
-- `README.md` — This file
