@@ -41,7 +41,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({character}) => {
                 <tr>
                     <td className='lbl'>Home Planet</td>
                     <td data-testid='home_planet' className='value'>
-                        {planetLoading ? 'Loading...' : (planetName || 'N/A')}
+                        {characterLoading || planetLoading ? 'Loading...' : (planetName || 'N/A')}
                     </td> 
                 </tr>
             </tbody>
