@@ -7,7 +7,7 @@ import Header from './Components/molecules/header';
 function App() {
   return (
     <Provider store={store}>
-      <div style={{ width: '100vw', height: '100vh' }}>
+      <div style={{ width: '100vw', height: '100vh', margin: '0 auto' }}>
         <Header />
         <CharacterList />
       </div>
