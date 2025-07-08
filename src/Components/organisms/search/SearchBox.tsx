@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { searchCharacters } from '../../../store/slices/CharacterListSlice';
+import { fetchCharacters, searchCharacters } from '../../../store/slices/CharacterListSlice';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../store';
-
 
 const SearchBox: React.FC = () => {
     const [input, setInput] = useState('');
@@ -20,6 +19,9 @@ const SearchBox: React.FC = () => {
             if (input.trim() !== '') {
                 dispatch(searchCharacters(input.trim()));
             }
+            else {
+                dispatch(fetchCharacters('https://swapi.tech/api/people/'));
+             }
         }, 500);
         return () => {
             if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -30,7 +32,6 @@ const SearchBox: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (debounceRef.current) clearTimeout(debounceRef.current);
-        console.log('Immediate search:', input.trim());
         dispatch(searchCharacters(input.trim()));
     };
 
