@@ -1,61 +1,97 @@
 .character-card {
-    border: solid 1px #ccc;
-    border-radius: 7px;
+    border: solid 1px #ddd;
+    border-radius: 2px;
     padding: 0px;
-    margin: 4px;
-    font-family: calibri;
-    height: 180px;
-    width: 200px;
-    box-shadow: 0px 0px 3px #999;
+    margin: 8px;
+    font-family: "Segoe UI", Calibri, sans-serif;
+    min-height: 180px;
+    width: 210px;
+    box-shadow: 0 16px 10px -10px rgba(179, 179, 179, 0.6274509804);
+    background: linear-gradient(135deg, #f8fafc 70%, #e3e9f3 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    transition: box-shadow 0.2s, transform 0.2s;
+    &:hover {
+        box-shadow: 0 4px 16px #a0bfff80;
+        transform: translateY(-1px) scale(1.03);
+    }
+
+    .character-card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 12px 0 12px;
+        .character-card-avatar {
+            background: #e3e9f3;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 4px #b3b3b3a0;
+            color: #0077ff;
+            font-size: 1.5rem;
+        }
+        .character-card-name {
+            font-size: 1.0rem;
+            font-weight: 600;
+            color: #222;
+            margin: 0;
+            flex: 1;
+            letter-spacing: 0.2px;
+        }
+    }
+
     .character-card-fav-toggle {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        padding: 8px 12px 0 0;
+        padding: 7px 12px 0 0;
+        min-height: 26px;
     }
-
-    .character-card-fav-label {
-        display: flex;
-        align-items: center;
+    .character-card-fav-bookmark {
+        background: none;
+        border: none;
+        outline: none;
         cursor: pointer;
-        font-size: 14px;
-    }
-
-    .character-card-fav-checkbox {
-        margin-right: 6px;
-    }
-
-    .character-card-fav-text {
+        padding: 0 1px;
         color: #bbb;
-        font-weight: 600;
-        transition: color 0.2s;
+        transition: color 0.2s, transform 0.15s;
+        font-size: 20px;
+        position: relative;
+        top: 0;
+        &:hover,
+        &.active {
+            color: #f5b301;
+            transform: scale(1.12) translateY(-1px);
+            filter: drop-shadow(0 1px 3px #f5b30144);
+        }
     }
-    .character-card-fav-text.favourite {
-        color: #f5b301;
-    }
-    h5 {
-        font-size: 16px;
-        margin: 12px 0px;
-        padding: 10px;
-        border: solid 1px #ccc;
-        background: #000;
-        color: #eee;
-    }
-    table {
-        margin: 10px;
+
+    .character-card-table {
+        margin: 10px 12px 0 12px;
+        width: calc(100% - 24px);
+        border-collapse: separate;
+        border-spacing: 0 2px;
         td {
             text-align: left;
-            margin-bottom: 10px;
+            font-size: 14px;
+            padding: 2px 4px;
             &.lbl {
-                color: #999;
+                color: #888;
                 font-size: 12px;
-                padding-right: 8px;
+                font-weight: 400;
+                padding-right: 4px;
+                width: 80px;
             }
             &.value {
-                color: #000;
+                color: #222;
                 font-size: 14px;
-                padding-left: 8px;
+                padding-left: 4px;
                 text-transform: capitalize;
+                font-weight: 500;
             }
         }
     }
