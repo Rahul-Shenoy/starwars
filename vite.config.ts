@@ -5,8 +5,8 @@
     export default defineConfig({
       plugins: [react()],
       test: {
-        environment: 'jsdom', // Use JSDOM for browser-like environment
-        setupFiles: ['./vitest-setup.js'], // Path to your setup file
-        globals: true, // Optional: makes test functions globally available
+        environment: 'jsdom', 
+        setupFiles: ['./vitest-setup.js'], 
+        globals: true,
       },
     });
